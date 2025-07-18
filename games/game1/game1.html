@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/game1.css">
+</head>
+<body>
+    <header>
+        <h1>Number Guessing Game</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Guess a number between 1 and 100</h2>
+            <div>
+                <label for="guessInput">Your Guess:</label>
+                <input type="number" id="guessInput" placeholder="Enter your guess">
+                <button onclick="checkGuess()">Submit Guess</button>
+            </div>
+            <p id="result"></p>
+            <p>Attempts: <span id="attempts">0</span></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Gaming Website. All Rights Reserved.</p>
+    </footer>
+
+    <script src="game1.js"></script>
+</body>
+</html>
