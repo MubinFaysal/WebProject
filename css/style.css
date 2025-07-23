@@ -44,15 +44,239 @@ ion-icon { pointer-events: none; }
 address { font-style: normal; }
 
 html {
-  font-family: var(--ff-poppins);
+  font-family: 'Poppins', sans-serif;
   font-size: 10px;
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--raisin-black-3);
-  font-size: 1.6rem;
-  line-height: 1.5;
+  background-color: rgb(39, 35, 41);
+  font-size: 25px;
+  line-height: 38px;
 }
 
 :focus-visible { outline-offset: 4px; }
+
+
+
+.container { padding-inline: 15px; }
+
+.section { padding-block: 120px;
+}
+
+.h1,
+.h2,
+.h3 {
+  color: rgb(255, 255, 255);
+  font-family: 'Oxanium', cursive;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.h1 {
+  font-size: 72px;
+  letter-spacing: -3px;
+}
+
+.h2 { font-size:58px; }
+
+.h3 {
+  font-size:32px;
+  text-transform: uppercase;
+}
+
+:is(.h1, .h2, .h3, .card-price) .span {
+  display: inline-block;
+  color: rgba(233, 164, 1, 0.75);
+}
+
+.btn {
+  margin-inline: auto;
+  color: rgb(27, 19, 32);;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight:700;
+  min-height: 55px;
+  padding-inline: 35px;
+}
+
+.skewBg {
+  position: relative;
+  z-index: 1;
+}
+
+.skewBg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: skewX(-16deg);
+    background-color: hsl(42, 99%, 46%);
+    z-index: -1;
+  }
+  
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(100% + 8px);
+    width: 5px;
+    transform: skewX(-16deg) translateX(0);
+    background-color: hsl(42, 99%, 46%);
+    transition: 0.25s ease;
+  }
+  
+  .btn:is(:hover, :focus)::after { 
+    transform: skewX(-16deg) translateX(-13px); 
+  }
+  
+  .has-scrollbar {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    padding-block-end: 30px;
+    scroll-snap-type: inline mandatory;
+  }
+  
+  .has-scrollbar::-webkit-scrollbar { height: 10px; }
+  
+  .has-scrollbar::-webkit-scrollbar-track { outline: 3px solid hsl(42, 99%, 46%); }
+  
+  .has-scrollbar::-webkit-scrollbar-thumb { background-color: hsl(42, 99%, 46%); }
+  
+  .has-scrollbar::-webkit-scrollbar-button { width: calc(25% - 40px); }
+  
+  .section-subtitle,
+  .section-title {
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  
+  .section-subtitle {
+    color: hsl(0, 0%, 78%);
+    font-size: 22px;
+    font-weight: 700;
+    margin-block-end: 10px;
+  }
+  
+  .section-title::after {
+    content: url("../images/title-underline.png");
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .scrollbar-item {
+    min-width: 100%;
+    scroll-snap-align: start;
+  }
+  
+  .card-banner { 
+    background-color: hsl(0, 0%, 80%);
+  }
+  
+  .img-holder { 
+    aspect-ratio: 16 / 9;
+  }
+  
+  .img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .card-badge {
+    min-height: 30px;
+    color: rgb(27, 19, 32);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    max-width: max-content;
+    display: grid;
+    align-items: center;
+    padding-inline: 20px;
+  }
+  
+  .card-badge::before { 
+    transform: skewX(-10deg);
+  }
+  
+  .w-100 { width: 100%; }
+  
+  .section-text {
+    color: rgb(233, 164, 1);
+    font-size: 24px;
+    font-weight: 500;
+    max-width: 65ch;
+    margin-inline: auto;
+    text-align: center;
+    line-height: 1.8;
+  }
+  
+  .search-container {
+    background-color: hsla(222, 18%, 11%, 0.95);
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 40px;
+    z-index: 6;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.25s ease;
+  }
+  
+  .search-container.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .search-container .input-wrapper {
+    position: relative;
+    max-width: 560px;
+    width: 100%;
+  }
+  
+  .search-container .search-field {
+    color: rgb(255, 255, 255);
+    font-size: 32px;
+    padding: 20px;
+    padding-inline-end: 60px;
+    border-block-end: 3px solid hsla(0, 0%, 100%, 0.1);
+    outline: none;
+    transition: 0.25s ease;
+  }
+  
+  .search-container .search-field:focus { 
+    border-color: hsl(0, 2%, 82%);
+  }
+  
+  .search-container .search-field::-webkit-search-cancel-button { 
+    display: none; 
+  }
+  
+  .search-container .search-submit {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 25px;
+    color: hsl(42, 99%, 46%);
+  }
+  
+  .search-container .search-submit ion-icon { 
+    --ionicon-stroke-width: 70px; 
+  }
+  
+  .search-container .search-close {
+    position: fixed;
+    inset: 0;
+    cursor: default;
+    z-index: -1;
+  }
+  
+
+
