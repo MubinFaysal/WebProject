@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess the Number</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: #eef;
+            padding: 20px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #result {
+            font-size: 18px;
+            margin-top: 15px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Guess the Number 🎯</h1>
+<p>I'm thinking of a number between <b>1</b> and <b>100</b>. Can you guess it?</p>
+
+<input type="number" id="guess" placeholder="Enter your guess">
+<br>
+<button onclick="checkGuess()">Guess</button>
+
+<p id="result"></p>
+<p>Attempts: <span id="attempts">0</span></p>
+
+<script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+        let guess = document.getElementById("guess").value;
+        attempts++;
+        document.getElementById("attempts").textContent = attempts;
+
+        if (guess == randomNumber) {
+            document.getElementById("result").textContent = "🎉 Correct! The number was " + randomNumber;
+            document.getElementById("result").style.color = "green";
+        } else if (guess < randomNumber) {
+            document.getElementById("result").textContent = "📉 Too low! Try again.";
+            document.getElementById("result").style.color = "red";
+        } else {
+            document.getElementById("result").textContent = "📈 Too high! Try again.";
+            document.getElementById("result").style.color = "red";
+        }
+    }
+</script>
+
+</body>
+</html>
