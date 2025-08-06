@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root"; // XAMPP default
 $pass = "";
-$dbname = "user_db";
+$dbname = "webproject"; // এখানে user_db এর জায়গায় webproject
 
 $conn = new mysqli($host, $user, $pass, $dbname);
 

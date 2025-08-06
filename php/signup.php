@@ -1,17 +1,35 @@
 <?php
 include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $username = trim($_POST['username'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $password_raw = $_POST['password'] ?? '';
 
-    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Registration successful! <a href='index.php'>Login Now</a>";
-    } else {
-        echo "Error: " . $conn->error;
+    if (empty($username) || empty($email) || empty($password_raw)) {
+        echo "❌ All fields are required!";
+        exit();
     }
+
+    $password = password_hash($password_raw, PASSWORD_DEFAULT);
+
+    $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+    if (!$stmt) {
+        echo "❌ Prepare failed: " . $conn->error;
+        exit();
+    }
+
+    $stmt->bind_param("sss", $username, $email, $password);
+
+    if ($stmt->execute()) {
+        // রেজিস্ট্রেশন সফল → লগইন পেজে রিডাইরেক্ট
+        header("Location: ../html/signup_signin.html");  // লগইন পেজ যেখানে আছে সেই ফাইলের relative path দাও
+        exit();
+    } else {
+        echo "❌ Error: " . $stmt->error;
+    }
+} else {
+    // সরাসরি ব্রাউজারে খুললে বা GET রিকোয়েস্টে
+    echo "❌ Please submit the form from the Sign Up page.";
 }
 ?>
