@@ -1,11 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Sliding Puzzle Game</title>
+  <style>
+  
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  text-align: center;
+  padding: 40px 20px;
+  margin: 0;
+}
+
+h1 {
+  color: #2c3e50;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+
+.puzzle {
+  width: 306px;
+  height: 306px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border: 2px solid #ddd;
+}
+
+
+.tile {
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(145deg, #3498db, #2980b9);
+  border: 1px solid #ecf0f1;
+  text-align: center;
+  box-sizing: border-box;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tile:hover {
+  background: linear-gradient(145deg, #2980b9, #2471a3);
+  transform: scale(1.05);
+}
+
+
+.empty {
+  background: transparent;
+  border: 1px dashed #ccc;
+  cursor: default;
+}
+
+
+button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(145deg, #27ae60, #229954);
+  transform: translateY(-2px);
+}
+
+  </style>
 </head>
 <body>
-    <h1>Coming Soon</h1>
+
+  <h1>Sliding Puzzle Game (3x3)</h1>
+  <div class="puzzle" id="puzzle"></div>
+  <button onclick="shuffle()">🔀 Shuffle</button>
+
+  
+
+  <script>
+    const puzzle = document.getElementById('puzzle');
+    let tiles = [];
+    let emptyIndex = 8;
+
+    function init() {
+      tiles = [];
+      for (let i = 1; i <= 8; i++) tiles.push(i);
+      tiles.push(""); 
+      render();
+    }
+
+    function render() {
+      puzzle.innerHTML = '';
+      tiles.forEach((value, i) => {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        if (value === "") {
+          tile.classList.add('empty');
+        } else {
+          tile.innerText = value;
+          tile.addEventListener('click', () => move(i));
+        }
+        puzzle.appendChild(tile);
+      });
+    }
+
+    function move(index) {
+      const validMoves = [index - 1, index + 1, index - 3, index + 3];
+
+      if (validMoves.includes(emptyIndex)) {
+        if (Math.abs(index - emptyIndex) === 1 &&
+            Math.floor(index / 3) !== Math.floor(emptyIndex / 3)) return;
+
+        [tiles[index], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[index]];
+        emptyIndex = index;
+        render();
+
+        if (checkWin()) {
+          setTimeout(() => alert('🎉 Puzzle Solved!'), 100);
+        }
+      }
+    }
+
+    function shuffle() {
+      for (let i = 0; i < 100; i++) {
+        const neighbors = getMovableIndexes(emptyIndex);
+        const randomIndex = neighbors[Math.floor(Math.random() * neighbors.length)];
+        [tiles[randomIndex], tiles[emptyIndex]] = [tiles[emptyIndex], tiles[randomIndex]];
+        emptyIndex = randomIndex;
+      }
+      render();
+    }
+
+    function getMovableIndexes(index) {
+      const moves = [];
+      if (index % 3 !== 0) moves.push(index - 1);    
+      if (index % 3 !== 2) moves.push(index + 1);     
+      if (index > 2) moves.push(index - 3);           
+      if (index < 6) moves.push(index + 3);           
+      return moves;
+    }
+
+    function checkWin() {
+      for (let i = 0; i < 8; i++) {
+        if (tiles[i] !== i + 1) return false;
+      }
+      return true;
+    }
+
+    init();
+  </script>
+
 </body>
 </html>

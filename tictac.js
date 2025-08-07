@@ -62,3 +62,7 @@ resetButton.addEventListener('click', () => {
 });
 
 createBoard();
+
+
+
+
