@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Memory Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #e0f7fa;
+        }
+        #game {
+            width: 220px;
+            margin: 40px auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .card {
+            width: 100px;
+            height: 100px;
+            background: #0097a7;
+            color: white;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .flipped {
+            background: #00e676;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🧠 Memory Match</h1>
+<div id="game"></div>
+<p id="status"></p>
+
+<script>
+    const values = [1, 1, 2, 2]; 
+    let shuffled = values.sort(() => 0.5 - Math.random());
+    let firstCard = null;
+    let secondCard = null;
+    let lockBoard = false;
+
+    const game = document.getElementById("game");
+
+    shuffled.forEach((val, index) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.dataset.value = val;
+        card.dataset.index = index;
+        card.textContent = "?";
+
+        card.addEventListener("click", () => {
+            if (lockBoard || card.classList.contains("flipped") || card === firstCard) return;
+
+            card.textContent = card.dataset.value;
+            if (!firstCard) {
+                firstCard = card;
+            } else {
+                secondCard = card;
+                lockBoard = true;
+
+                if (firstCard.dataset.value === secondCard.dataset.value) {
+                    firstCard.classList.add("flipped");
+                    secondCard.classList.add("flipped");
+                    resetTurn();
+                    checkWin();
+                } else {
+                    setTimeout(() => {
+                        firstCard.textContent = "?";
+                        secondCard.textContent = "?";
+                        resetTurn();
+                    }, 800);
+                }
+            }
+        });
+
+        game.appendChild(card);
+    });
+
+    function resetTurn() {
+        [firstCard, secondCard] = [null, null];
+        lockBoard = false;
+    }
+
+    function checkWin() {
+        const flippedCards = document.querySelectorAll('.flipped');
+        if (flippedCards.length === values.length) {
+            document.getElementById("status").textContent = "🎉 You Win!";
+        }
+    }
+</script>
+
+</body>
+</html>
