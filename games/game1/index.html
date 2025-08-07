@@ -1,70 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>trueChess | Open Source Chess framework.</title>
-	  <meta charset="UTF-8">
-	  <meta name="description" content="Free and Open Source chess framework for your next chess game project.">
-	  <meta name="keywords" content="trueChess, chess game, game, board, pawn, king, knight, rook, bishop, chess board, white pawn, black pawn, check mate, ichess, chessboard, play chess, learn chess, develop chess, integrate chess board">
-	  <meta name="author" content="Sonu Auti @sonuauti">
-	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> <!-- required for animation, if set false then not required-->
-	  <link rel="stylesheet" href="style.css"> <!-- color and style information -->
-	  <script type="text/javascript" src="truechess_beta.js"> </script> <!--  main js file -->
-	
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+
+    <title>Web Chess</title>
 </head>
+<body>
+    <div id="main">
+        <div class="board">
+            <div class="row">
+                <div id="11" class="square white"></div>
+                <div id="12" class="square black"></div>
+                <div id="13" class="square white"></div>
+                <div id="14" class="square black"></div>
+                <div id="15" class="square white"></div>
+                <div id="16" class="square black"></div>
+                <div id="17" class="square white"></div>
+                <div id="18" class="square black"></div>
+            </div>
+            <div class="row">
+                <div id="21" class="square black"></div>
+                <div id="22" class="square white"></div>
+                <div id="23" class="square black"></div>
+                <div id="24" class="square white"></div>
+                <div id="25" class="square black"></div>
+                <div id="26" class="square white"></div>
+                <div id="27" class="square black"></div>
+                <div id="28" class="square white"></div>
+            </div>
+            <div class="row">
+                <div id="31" class="square white"></div>
+                <div id="32" class="square black"></div>
+                <div id="33" class="square white"></div>
+                <div id="34" class="square black"></div>
+                <div id="35" class="square white"></div>
+                <div id="36" class="square black"></div>
+                <div id="37" class="square white"></div>
+                <div id="38" class="square black"></div>
+            </div>
+            <div class="row">
+                <div id="41" class="square black"></div>
+                <div id="42" class="square white"></div>
+                <div id="43" class="square black"></div>
+                <div id="44" class="square white"></div>
+                <div id="45" class="square black"></div>
+                <div id="46" class="square white"></div>
+                <div id="47" class="square black"></div>
+                <div id="48" class="square white"></div>
+            </div>
+            <div class="row">
+                <div id="51" class="square white"></div>
+                <div id="52" class="square black"></div>
+                <div id="53" class="square white"></div>
+                <div id="54" class="square black"></div>
+                <div id="55" class="square white"></div>
+                <div id="56" class="square black"></div>
+                <div id="57" class="square white"></div>
+                <div id="58" class="square black"></div>
+            </div>
+            <div class="row">
+                <div id="61" class="square black"></div>
+                <div id="62" class="square white"></div>
+                <div id="63" class="square black"></div>
+                <div id="64" class="square white"></div>
+                <div id="65" class="square black"></div>
+                <div id="66" class="square white"></div>
+                <div id="67" class="square black"></div>
+                <div id="68" class="square white"></div>
+            </div>
+            <div class="row">
+                <div id="71" class="square white"></div>
+                <div id="72" class="square black"></div>
+                <div id="73" class="square white"></div>
+                <div id="74" class="square black"></div>
+                <div id="75" class="square white"></div>
+                <div id="76" class="square black"></div>
+                <div id="77" class="square white"></div>
+                <div id="78" class="square black"></div>
+            </div>
+            <div class="row">
+                <div id="81" class="square black"></div>
+                <div id="82" class="square white"></div>
+                <div id="83" class="square black"></div>
+                <div id="84" class="square white"></div>
+                <div id="85" class="square black"></div>
+                <div id="86" class="square white"></div>
+                <div id="87" class="square black"></div>
+                <div id="88" class="square white"></div>
+            </div>
+        </div>
+    </div>
 
-<body style="text-align: center;font-size: 16px;">
-
-	<div id="chessBoard1" style="width: 600px; margin: auto;"> </div>
-	
-	<div style="box-shadow: 0px 0px 2px 2px #eee;
-	border-radius: 10px;margin-left: 12px;display: inline-block;margin-top: 10px;">
-		<div  id="theme_wood" class="themes animated" style="background: var(--theme_wood);" onclick="truechess.updateTheme(document.getElementById(this.id).style.background);"></div>
-		<div  id="theme_darkwood" class="themes animated" style="background: var(--theme_darkwood);" onclick="truechess.updateTheme(document.getElementById(this.id).style.background);"></div>
-		<div id="theme_pink" class="themes animated" style="background: var(--theme_pink);" onclick="truechess.updateTheme(document.getElementById(this.id).style.background);"></div>
-		<div  id="theme_vibrant" class="themes animated" style="background: var(--theme_vibrant);" onclick="truechess.updateTheme(document.getElementById(this.id).style.background);"></div>
-		<div  id="theme_default" class="themes animated" style="background: var(--theme_default);" onclick="truechess.updateTheme(document.getElementById(this.id).style.background);"></div>
-		<div  id="theme_black" class="themes animated" style="background: var(--theme_black);" onclick="truechess.updateTheme(document.getElementById(this.id).style.background);"></div>
-	</div>
-
-
-	<script type="text/javascript">
-	function initiChess(){
-		var config = {
-			showBoardNotations:true,	//show board notations 1-8, a-f
-			position:"start",  // either start or position array
-			orientation:'default',			//top side down
-			isDraggable:true,				//drag element
-			isFocus:false,					//
-			boardTheme:'theme_default',		//board color
-			showClock:true,				//hide or show clock
-			gameTime:'10',				//game time
-			imgSrc:'img/',				//absolute path of icons
-			displayUnicodeSymbols:false, //display web friendly icons
-			showCapturedPieces:true,	//show captured pieces
-			showBoardWithPieces:true,	//show board only
-			animation:true, 			//show animation 
-			showBorder:false,			//show or hide board border
-			lockMoves:false,
-			onPositionUpdate:function(startPos,endPos,element){
-				console.log('This is from callback function '+startPos+","+endPos+","+element);
-				console.log(truechess.getPositions());
-			},
-			onDragStart:function(startPos){
-				console.log('Position started at '+startPos);
-			},
-			onDragStop:function(endPos){
-				console.log('Position end at '+endPos);
-			},
-		}
-		
-		//console.log(window.truechess);
-		truechess.createChessBoard('chessBoard1',config);
-		//console.log(truechess.getPositions());
-	
-	}
-	initiChess();
-	</script>
-
+    <script src="gameController.js"></script>
 </body>
 </html>
