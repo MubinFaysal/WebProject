@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>trueChess | Open Source Chess framework for game of chess.</title>
+	  <meta charset="UTF-8">
+	  <meta name="description" content="Free and Open Source chess framework for your next chess game project.">
+	  <meta name="keywords" content="trueChess, chess game, game, board, pawn, king, knight, rook, bishop, chess board, white pawn, black pawn, check mate, ichess, chessboard, play chess, learn chess, develop chess, integrate chess board">
+	  <meta name="author" content="Sonu Auti @sonuauti">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"> <!-- required for animation if set false then not required-->
+	  <link rel="stylesheet" href="../style.css"> <!-- color and style information -->
+	  <script type="text/javascript" src="../truechess.js"> </script> <!--  main js file -->
+	
+</head>
+
+<body style="text-align: center;font-size: 16px;">
+
+	<div id="chessBoard" style="width: 500px; margin: auto;"> </div>
+	
+	<div style="box-shadow: 0px 0px 2px 2px #eee;
+	border-radius: 10px;margin-left: 12px;display: inline-block;margin-top: 10px;">
+		<div  id="theme_wood" class="themes animated" style="background: var(--theme_wood);" onclick="updateTheme(document.getElementById(this.id).style.background);"></div>
+		<div  id="theme_darkwood" class="themes animated" style="background: var(--theme_darkwood);" onclick="updateTheme(document.getElementById(this.id).style.background);"></div>
+		<div id="theme_pink" class="themes animated" style="background: var(--theme_pink);" onclick="updateTheme(document.getElementById(this.id).style.background);"></div>
+		<div  id="theme_vibrant" class="themes animated" style="background: var(--theme_vibrant);" onclick="updateTheme(document.getElementById(this.id).style.background);"></div>
+		<div  id="theme_default" class="themes animated" style="background: var(--theme_default);" onclick="updateTheme(document.getElementById(this.id).style.background);"></div>
+		<div  id="theme_black" class="themes animated" style="background: var(--theme_black);" onclick="updateTheme(document.getElementById(this.id).style.background);"></div>
+	</div>
+
+
+	<script type="text/javascript">
+		function initiChess(){
+		var config = {
+			showBoardNotations:true,	//show board notations 1-8, a-f
+			position:{d6: 'bking', d4: 'wpawn', e4: 'wking',a1:'wrook',a8:'brook',b4:'wqueen'},  // Either start or position array
+			isDraggable:false,				//drag element			
+			boardTheme:'theme_wood',		//board color
+			imgSrc:'img/new/',				//absolute path of icons
+			showBoardWithPieces:true,	//show board only
+			animation:true 				//show animation 
+		}
+		
+		createChessBoard('chessBoard',config);
+	}
+	initiChess();
+	</script>
+
+</body>
+</html>
