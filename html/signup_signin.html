@@ -12,68 +12,51 @@
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form action="../php/signin.php" method="POST" class="sign-in-form">
+          <form action="../php/signin.php" method="POST" class="sign-in-form" onsubmit="return validateLoginForm()">
             <h2 class="title">Sign In</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="username"  placeholder="Username" />
+              <input type="text" name="username"  placeholder="Username" required />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" name="password" placeholder="Password" />
+              <input type="password" name="password" placeholder="Password" required />
             </div>
             <input type="submit" value="Login" class="btn solid" />
 
-            <p class="social-text">Or Sign in with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
           </form>
+          <script>
+              function validateLoginForm() {
+                const username = document.querySelector('.sign-in-form input[name="username"]').value.trim();
+                const password = document.querySelector('.sign-in-form input[name="password"]').value.trim();
+
+                if (username === "" || password === "") {
+                  alert("Username and Password are required!");
+                  return false;  // Form সাবমিট হবে না, পেজও রিফ্রেশ হবে না
+                }
+                return true;  // Form সাবমিট হবে, PHP স্ক্রিপ্টে যাবে
+              }
+            </script>
 
 
-          <form action="../php/signup.php" method="POST" class="sign-up-form">
+          <form action="../php/signup.php" method="POST" class="sign-up-form" >
             <h2 class="title">Sign Up</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" name="username" placeholder="Username" />
+              <input type="text" name="username" placeholder="Username" required  />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
-              <input type="email" name="email" placeholder="Email" />
+              <input type="email" name="email" placeholder="Email" required  />
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password"  name="password" placeholder="Password" />
+              <input type="password"  name="password" placeholder="Password" required />
             </div>
             <input type="submit" value="Sign Up" class="btn solid" />
-
-            <p class="social-text">Or Sign up with social platforms</p>
-            <div class="social-media">
-              <a href="#" class="social-icon">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-twitter"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-google"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fab fa-linkedin-in"></i>
-              </a>
-            </div>
           </form>
+
+
         </div>
       </div>
       <div class="panels-container">

@@ -1,26 +1,36 @@
 <?php
+session_start();
 include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {
-        $username = trim($_POST['username']);
-        $email = trim($_POST['email']);
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
 
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $password);
+    if (empty($username) || empty($password)) {
+        echo "<script>alert('❌ All fields are required!'); window.location.href = '../html/signup_signin.html';</script>";
+        exit();
+    }
 
-        if ($stmt->execute()) {
-            // Registration successful → Redirect to login page
-            header("Location: ../html/games.html"); // এখানে তোমার লগইন পেজের path দাও
+    $sql = "SELECT * FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['username'] = $user['username'];
+            // ✅ Redirect to game page
+            header("Location: ../html/games.html");
             exit();
         } else {
-            echo "❌ Error: " . $stmt->error;
+            echo "<script>alert('❌ Incorrect password!'); window.location.href = '../html/signup_signin.html';</script>";
+            exit();
         }
     } else {
-        echo "❌ All fields are required!";
+        echo "<script>alert('❌ User not found!'); window.location.href = '../html/signup_signin.html';</script>";
+        exit();
     }
-} else {
-    echo "❌ Please submit the form from the Sign Up page.";
 }
 ?>
