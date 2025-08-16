@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency: pages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare static site (exclude PHP)
+        shell: bash
+        run: |
+          set -e
+          mkdir -p public
+          # Enable extended globbing and include hidden files
+          shopt -s extglob dotglob
+          # Copy everything except: php directory, the public dir itself, git metadata, and GitHub workflows
+          cp -r !(php|public|.git|.github) public/ || true
+          # Also copy any top-level files that may not be caught above (safety)
+          for f in *.html *.css *.js *.png *.jpg *.jpeg *.svg; do
+            [ -e "$f" ] && cp -f "$f" public/ || true
+          done
+          # Ensure no PHP files make it through
+          find public -type f -name "*.php" -delete
+
+          # Create a root index.html that redirects to html/games.html (entry point)
+          cat > public/index.html <<'EOF'
+          <!doctype html>
+          <meta charset="utf-8">
+          <title>Redirecting...</title>
+          <meta http-equiv="refresh" content="0; url=html/games.html">
+          <link rel="canonical" href="html/games.html">
+          <script>
+            window.location.replace('html/games.html' + window.location.search + window.location.hash);
+          </script>
+          <body>If you are not redirected automatically, <a href="html/games.html">click here</a>.</body>
+          EOF
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
